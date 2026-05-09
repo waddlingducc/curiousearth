@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Curious Earth"
+version = "1.0.0"
+id = "artifacts/curious-earth"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22398
+
+[services.development]
+run = "pnpm --filter @workspace/curious-earth run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/curious-earth", "run", "build" ]
+publicDir = "artifacts/curious-earth/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22398"
+BASE_PATH = "/"
